@@ -1,0 +1,161 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title> Regex Fu </title>
+    
+    <meta name="author" content="Venkatakrishnan Ganesh" />
+
+
+    <link href="css/impress-demo.css" rel="stylesheet" />
+    <link href="css/github.css" rel="stylesheet" />
+    
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+    <style>
+
+      .red-dragon { background: url(images/RedDragon.jpg) no-repeat; color: #fff;  }
+      .perl-intro { background: url(images/perl.png) no-repeat right center #983265; background-size: 100% 100%; color: #fff;  }
+      .tresure { background: url(images/tresurepile.jpg) no-repeat right center #983265; background-size: 100% 100%; color: #fff;  }
+      .slide q { font-size: 25px; line-height: 40px; margin-top: 30px; }
+      ol li {
+        margin: 20px 0; font-size: 0.8em;
+      }
+
+      pre { font-size: 0.7em; }
+
+
+    </style>
+</head>
+
+
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+    
+<div id="impress">
+
+    <div class="step slide red-dragon" data-x="0" data-y="-1500">
+      <q> Regex Fu </q>
+      <p> Bangalore Perl Mongers </p>
+    </div>
+
+    <div id="bored" class="step slide" data-x="1000" data-y="-1500">
+        <q>
+          <ul>
+            <li> IRC: <b>wolf_</b> </li>
+            <li> Github: <b> gvenkat </b> </li>
+          </ul>
+        </q>
+    </div>
+
+    <div class="step slide perl-intro" data-x="2000" data-y="-1500">
+      <q> Perl's Awesome! </q>
+    </div>
+
+    <div class="step slide" data-x="3000" data-y="-1500">
+      <q> /x </q>
+      <ol>
+        <li> Maintainable </li> 
+        <li> Write large expressions without losing your mind</li> 
+      </ol>
+    </div>
+
+    <div class="step slide" data-x="4000" data-y="-1500">
+      <q> Mojo::DOM </q>
+      <pre>
+        <code class='Perl'>
+
+          my $CLASS_ID_RE = qr/
+            (?:
+              (?:\.((?:\\\.|[^\#.])+)) # Class
+              |
+              (?:\#((?:\\\#|[^.\#])+)) # ID
+            )
+          /x;
+        
+        </code>
+      </pre>
+    </div>
+
+    <div class="step slide" data-x="5000" data-y="-1500">
+      <q> Non Greedy *? +? ?? {x}? {x,}? {x,y}? </q>
+      <pre>
+        <code class='Perl'>
+          $x = "The programming republic of Perl";
+          $x =~ /^(.+?)(e|r)(.*)$/;
+          
+        </code>
+      </pre>
+    </div>
+
+    <div class="step slide" data-x="6000" data-y="-1500">
+      <q> Possessive *+ ++ ?+ {x}+ {x,}+ {x,y}+ </q>
+      <pre>
+        <code class='Perl'>
+          /"(?:[^"\\]++|\\.)*+"/;
+        </code>
+      </pre>
+    </div>
+
+    <div class="step slide" data-x="7000" data-y="-1500">
+      <q> Named Captures (?'whatever' ) (?&lt;name&gt; )</q>
+      <pre>
+        <code class='Perl'>
+         $a = "John Doe";
+         # Available here: %+ after successful match
+         $a =~ /(?<first_name>\w+)\s+(?<last_name>\w+)/;
+        </code>
+      </pre>
+    </div>
+
+    <div class="step slide" data-x="8000" data-y="-1500">
+      <q> Evaluate Code as RegEx (??{ Perl Code } )  </q>
+      <pre>
+        <code class='Perl'>
+          $a = "Two pints of Beer";
+          $b = "Two bags of Marbles";
+
+          $re = qr/
+            Two \s+
+            (\w+)\s+
+            of\s+
+            (??{ ( $1 eq 'pints' ) ? 'Beer' : 'Marbles'; })
+          /x;
+        </code>
+      </pre>
+    </div>
+
+    <div class="step slide tresure" data-x="9000" data-y="-1500">
+      <q> There's tons more, Go Crazy! </q>
+    </div>
+
+    <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
+    </div>
+
+</div>
+
+<div class="hint">
+    <p>Use a spacebar or arrow keys to navigate</p>
+</div>
+<script>
+if ("ontouchstart" in document.documentElement) { 
+    document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
+}
+</script>
+
+<script src="js/impress.js"></script>
+<script src="js/highlight.pack.js"></script>
+<script>
+  impress().init();
+  hljs.tabReplace = ' ';
+  hljs.initHighlightingOnLoad(); 
+</script>
+
+</body>
+</html>
