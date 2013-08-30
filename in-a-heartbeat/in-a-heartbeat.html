@@ -27,7 +27,7 @@
         margin: 20px 0; font-size: 0.8em;
       }
 
-      pre { font-size: 0.7em; }
+      pre { font-size: 0.5em; }
 
 
     </style>
@@ -94,50 +94,110 @@
 
     <div class="step slide" data-x="6000" data-y="-1500">
       <q> Stethescope </q>
+      <ul>
+        <li> Is an accoustic device for listening to internal sounds </li>
+        <li> Used to listen to heart and lung sounds </li> 
+        <li> <strong> Now we're going to build one </strong> </li>
+      </ul>
     </div>
 
     <div class="step slide" data-x="7000" data-y="-1500">
-      <q> Measuring Sound </q> 
+      <q> Stethoscope </q> 
+      <img src='images/stethoscope.png'>
     </div>
 
     <div class="step slide" data-x="8000" data-y="-1500">
-      <q> The WAV file </q> 
+      <q> Measuring Sound </q> 
+      <ul>
+        <li> You can use any tool to record sound from the microphone </li>
+        <li> I used <strong> Audacity </strong> to record about 40 sec sample </li>
+      </ul>
     </div>
 
     <div class="step slide " data-x="9000" data-y="-1500">
-      <q> Reading the WAV file </q> 
+      <q> The WAV file </q> 
+      <img src='images/wav-sound-format.gif'>
     </div>
 
     <div class="step slide " data-x="10000" data-y="-1500">
-      <q> How does this look? </q> 
+      <pre>
+        <code class='perl'>
+          while( ! eof( $wav ) ) {
+            $wav->read( $bytes, 4 );
+            if( $bytes eq 'data' ) {
+              $wav->read( $size, 4 );
+
+              $size = ( unpack( 'l', $size ) )[ 0 ];
+              while( ( $size -= 4 ) >= 0 ) {
+                $wav->read( $channel_data, 4 );
+
+                my ( $ch1, $ch2 ) = unpack( 'ss', $channel_data );
+                $csv->print( $ofh, [ $ch1, $ch2, $ch1 + $ch2 ] );
+                $ofh->write( "\n" );
+              }
+        </code>
+      </pre>
     </div>
 
     <div class="step slide " data-x="11000" data-y="-1500">
+      <q> How does this look? </q> 
+      <img src='images/heartbeat.png' />
+    </div>
+
+    <div class="step slide " data-x="12000" data-y="-1500">
       <q> Measuring the heart rate </q> 
-    </div>
+      <ul>
+        <li> Litte more tricky to figure out the heart rate </li>
+        <li> There's inherent noise </li> 
+        <li> Filter out all readings with amplitude not between <strong> 95 ~ 100 </strong>
+        <li> Remove all readings too close to each other </li> 
+        <li> with the rest, 44,100 cycles in a second </li> 
+        <li> AVG( ( cycles / 44100 ) * 60 ) <li>
 
-    <div class="step slide " data-x="12000" data-y="-1500">
-      <q> Oximetry </q> 
-    </div>
-
-    <div class="step slide " data-x="12000" data-y="-1500">
-      <q> Recording Video </q> 
+      </ul>
     </div>
 
     <div class="step slide " data-x="13000" data-y="-1500">
-      <q> Analyzing Video </q> 
+      <q> Stethoscope </q>
+      <li> There you go, you have your home made Perly Stethoscope! </li>
     </div>
 
     <div class="step slide " data-x="14000" data-y="-1500">
-      <q> Measuring Heartrate </q> 
+      <q> Oximetry </q> 
+      <ul>
+        <li> Light is passed through thin part of the body </li>
+        <li> As heart pumps bloood through veins, measure difference in light absorption </li> 
+      </ul>
     </div>
 
-    <div class="step slide " data-x="14000" data-y="-1500">
-      <q> Try it out </q> 
+    <div class="step slide " data-x="15000" data-y="-1500">
+      <q> Recording Video </q> 
+      <ul>
+        <li> Use any phone camera, record video </li>
+        <li> Use pen torch or similar pass light into finger </li>
+      </ul>
     </div>
 
-    <div class="step slide " data-x="14000" data-y="-1500">
+    <div class="step slide " data-x="16000" data-y="-1500">
+      <q> The Video </q> 
+      <p> Quite Boring </p>
+    </div>
+
+    <div class="step slide " data-x="17000" data-y="-1500">
+      <q> The Video </q> 
+    </div>
+
+    <div class="step slide " data-x="17000" data-y="-1500">
       <q> Credits and Code </q> 
+      <ul>
+        <li> Perl implementation Chapter 5 from <strong> excellent </strong> book <strong> Exploring everyday things with Ruby and R </strong>
+        <li> github.com/gvenkat/in-a-heartbeat </li>
+        
+      </ul>
+    </div>
+
+    <div class="step slide " data-x="18000" data-y="-1500">
+      <q> Thank You! </q> 
     </div>
 
 </div>
